@@ -10,6 +10,8 @@ public class SignalingTrigger : MonoBehaviour
     private AudioSource _signalingSound;
     private Coroutine _signalingPlayer;
 
+    private float _targetAlarmSoundVolume = AudioParameters.MinVolume;
+
     private bool _isOnTriggerEnter;
 
     private void Start()
@@ -21,10 +23,8 @@ public class SignalingTrigger : MonoBehaviour
     {
         _isOnTriggerEnter = true;
 
-        if (_signalingSound.volume == AudioParameters.MinVolume)
+        if (_signalingPlayer == null)
         {
-            _signalingSound.Play();
-
             _signalingPlayer = StartCoroutine(PlaySignaling());
         }
     }
@@ -36,6 +36,8 @@ public class SignalingTrigger : MonoBehaviour
 
     private IEnumerator PlaySignaling()
     {
+        _signalingSound.Play();
+
         do
         {
             if (_isOnTriggerEnter)
@@ -49,11 +51,11 @@ public class SignalingTrigger : MonoBehaviour
 
             yield return null;
         }
-        while (_signalingSound.volume != AudioParameters.MinVolume);
+        while (_signalingSound.volume != _targetAlarmSoundVolume);
 
         _signalingSound.Stop();
 
-        StopCoroutine(_signalingPlayer);
+        _signalingPlayer = null;
     }
 
     private void ChangeSoundVolume(float targetVolume)
