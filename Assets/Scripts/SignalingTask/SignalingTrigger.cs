@@ -23,10 +23,12 @@ public class SignalingTrigger : MonoBehaviour
     {
         _isOnTriggerEnter = true;
 
-        if (_signalingPlayer == null)
+        if (_signalingPlayer != null)
         {
-            _signalingPlayer = StartCoroutine(PlaySignaling());
+            StopCoroutine(_signalingPlayer);
         }
+
+        _signalingPlayer = StartCoroutine(PlaySignaling());
     }
 
     public void DisableAlarm()
@@ -54,8 +56,6 @@ public class SignalingTrigger : MonoBehaviour
         while (_signalingSound.volume != _targetAlarmSoundVolume);
 
         _signalingSound.Stop();
-
-        _signalingPlayer = null;
     }
 
     private void ChangeSoundVolume(float targetVolume)
