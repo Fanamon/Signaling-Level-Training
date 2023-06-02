@@ -14601,9 +14601,10 @@ GameObject:
   - component: {fileID: -6965362560329316033}
   - component: {fileID: -4797702620388502352}
   - component: {fileID: -698837175700086612}
+  - component: {fileID: 9207845089267826097}
   m_Layer: 0
   m_Name: CannonMachine
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14705,6 +14706,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82d8e97d93a9df3439f4c91cb1ab479a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9207845089267826097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321759661024940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4ca1c323e7b0ee429593d75ffd9952d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _object: {fileID: 1321759661024940}
 --- !u!1 &1381512401804482
 GameObject:
   m_ObjectHideFlags: 0

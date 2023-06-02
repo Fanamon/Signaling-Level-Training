@@ -5,7 +5,7 @@ using System.Linq;
 
 public class GenerateEnemies : MonoBehaviour
 {
-    [SerializeField] private GameObject _enemyToSpawn;
+    [SerializeField] private Enemy _enemyToSpawn;
 
     private readonly System.Random _random = new System.Random();
 
@@ -35,6 +35,6 @@ public class GenerateEnemies : MonoBehaviour
     {
         int randomSpawnIndex = _random.Next(_spawnPoints.Length);
 
-        GameObject spawnedEnemy = Instantiate(_enemyToSpawn, _spawnPoints[randomSpawnIndex].transform.position, Quaternion.identity);
+        GameObject spawnedEnemy = Instantiate(_enemyToSpawn.Object, _spawnPoints[randomSpawnIndex].transform.position, Quaternion.identity);
     }
 }
