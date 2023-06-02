@@ -11,30 +11,31 @@ public class GenerateEnemies : MonoBehaviour
 
     private Transform[] _spawnPoints;
 
-    private readonly float _spawnInterval = 2;
-    private float _spawnTimer = 0;
-
     private void Start()
     {
         _spawnPoints = GetComponentsInChildren<Transform>().Where(spawnPoint => spawnPoint != transform).ToArray();
+
+        StartCoroutine(CountTime());
     }
 
-    private void Update()
+    private IEnumerator CountTime()
     {
-        _spawnTimer += Time.deltaTime;
-
-        if (_spawnTimer >= _spawnInterval)
+        float spawnInterval = 2;
+        
+        for (float i = 0; i < spawnInterval; i += Time.deltaTime)
         {
-            SpawnObject();
-
-            _spawnTimer = 0;
+            yield return null;
         }
+
+        SpawnEnemy();
+
+        StartCoroutine(CountTime());
     }
 
-    private void SpawnObject()
+    private void SpawnEnemy()
     {
         int randomSpawnIndex = _random.Next(_spawnPoints.Length);
 
-        GameObject spawnedEnemy = Instantiate(_enemyToSpawn.Object, _spawnPoints[randomSpawnIndex].transform.position, Quaternion.identity);
+        Instantiate(_enemyToSpawn.gameObject, _spawnPoints[randomSpawnIndex].transform.position, Quaternion.identity);
     }
 }
