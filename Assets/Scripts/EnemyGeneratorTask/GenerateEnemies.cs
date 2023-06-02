@@ -15,21 +15,21 @@ public class GenerateEnemies : MonoBehaviour
     {
         _spawnPoints = GetComponentsInChildren<Transform>().Where(spawnPoint => spawnPoint != transform).ToArray();
 
-        StartCoroutine(CountTime());
+        StartCoroutine(SpawnWithTimeInterval());
     }
 
-    private IEnumerator CountTime()
+    private IEnumerator SpawnWithTimeInterval()
     {
         float spawnInterval = 2;
+
+        bool isGameGoing = true;
         
-        for (float i = 0; i < spawnInterval; i += Time.deltaTime)
+        while (isGameGoing)
         {
-            yield return null;
+            SpawnEnemy();
+
+            yield return new WaitForSeconds(spawnInterval);
         }
-
-        SpawnEnemy();
-
-        StartCoroutine(CountTime());
     }
 
     private void SpawnEnemy()
