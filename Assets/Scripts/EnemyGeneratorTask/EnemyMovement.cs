@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PhysicsMovement))]
 public class EnemyMovement : MonoBehaviour
 {
     private PhysicsMovement _movement;
+
+    private GameObject _objectToFollow;
 
     private void Awake()
     {
@@ -14,6 +14,11 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
-        _movement.Move(FindAnyObjectByType<Player>().transform.position - transform.position);
+        _movement.Move(_objectToFollow.transform.position - transform.position);
+    }
+
+    public void SetObjectToFollow(GameObject objectToFollow)
+    {
+        _objectToFollow = objectToFollow;
     }
 }

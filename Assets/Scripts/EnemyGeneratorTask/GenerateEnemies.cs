@@ -1,11 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using System.Linq;
 
 public class GenerateEnemies : MonoBehaviour
 {
     [SerializeField] private Enemy _enemyToSpawn;
+    [SerializeField] private GameObject _objectToFollow;
 
     private readonly System.Random _random = new System.Random();
 
@@ -35,7 +36,13 @@ public class GenerateEnemies : MonoBehaviour
     private void SpawnEnemy()
     {
         int randomSpawnIndex = _random.Next(_spawnPoints.Length);
+        var spawnedEnemy = Instantiate(_enemyToSpawn.gameObject, _spawnPoints[randomSpawnIndex].transform.position, Quaternion.identity);
 
-        Instantiate(_enemyToSpawn.gameObject, _spawnPoints[randomSpawnIndex].transform.position, Quaternion.identity);
+        if (spawnedEnemy.TryGetComponent(out EnemyMovement enemyMovement) == false)
+        {
+            throw new NullReferenceException("EnemyMovement required on enemy prefab!");
+        }
+
+        enemyMovement.SetObjectToFollow(_objectToFollow);
     }
 }

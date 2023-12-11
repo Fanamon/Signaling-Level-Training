@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(SurfaceSlider))]
@@ -10,6 +9,8 @@ public class PhysicsMovement : MonoBehaviour
 
     private Rigidbody _rigidbody;
     private SurfaceSlider _surfaceSlider;
+
+    public event UnityAction<float> Moved;
 
     public float Speed => _speed;
 
@@ -27,5 +28,6 @@ public class PhysicsMovement : MonoBehaviour
         Vector3 offset = directionAlongSurface * (Speed * Time.deltaTime);
 
         _rigidbody.MovePosition(_rigidbody.position + offset);
+        Moved?.Invoke(offset.magnitude);
     }
 }
